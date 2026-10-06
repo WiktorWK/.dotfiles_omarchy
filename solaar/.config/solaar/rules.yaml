@@ -21,3 +21,8 @@
 - Rule:
   - Key: [Mouse Gesture Button, pressed]
   - KeyPress: [Super_L]
+
+---
+- Rule:
+  - Key: [Screen Lock, pressed]
+  - Execute: [omarchy-system-logout]

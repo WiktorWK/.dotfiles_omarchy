@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Ctrl+hjkl focus: nvim splits -> tmux panes -> Hyprland windows.
+# Usage: focus-move <h|j|k|l> [--outer]   (--outer: skip nvim, called by nvim at its edge)
+dir=$1; outer=$2
+case $dir in
+  h) hdir=l; tflag=-L; edge=pane_at_left ;;
+  j) hdir=d; tflag=-D; edge=pane_at_bottom ;;
+  k) hdir=u; tflag=-U; edge=pane_at_top ;;
+  l) hdir=r; tflag=-R; edge=pane_at_right ;;
+  *) exit 1 ;;
+esac
+
+hypr() { hyprctl dispatch "hl.dsp.focus({direction=\"$hdir\"})" >/dev/null; }
+to_window() {
+  hyprctl dispatch "hl.dsp.send_shortcut({mods=\"CTRL\",key=\"$dir\",window=\"activewindow\"})" >/dev/null
+}
+
+read -r class pid < <(hyprctl activewindow -j | jq -r '"\(.class) \(.pid)"')
+[[ $class == foot ]] || { hypr; exit; }
+
+# does pid $2 descend from $1?
+descends() { local p=$2; while [[ $p -gt 1 ]]; do [[ $p == "$1" ]] && return 0; p=$(ps -o ppid= -p "$p" | tr -d ' '); done; return 1; }
+
+# find the tmux session attached inside this foot window
+session=
+while read -r cpid sname; do
+  descends "$pid" "$cpid" && { session=$sname; break; }
+done < <(tmux list-clients -F '#{client_pid} #{session_name}' 2>/dev/null)
+
+if [[ -n $session ]]; then
+  read -r cmd at_edge < <(tmux display -p -t "$session" "#{pane_current_command} #{$edge}")
+  if [[ $cmd == nvim && $outer != --outer ]]; then to_window; exit; fi
+  if [[ $at_edge == 0 ]]; then tmux select-pane -t "$session" "$tflag"; else hypr; fi
+else
+  if [[ $outer != --outer ]] && pgrep -P "$(pgrep -P "$pid" | paste -sd,)" -x nvim >/dev/null 2>&1; then to_window; else hypr; fi
+fi

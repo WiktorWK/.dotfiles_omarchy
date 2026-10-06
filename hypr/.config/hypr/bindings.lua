@@ -29,7 +29,18 @@
 -- o.bind("SUPER + PERIOD", nil, "omarchy-shell shell toggle omarchy.emojis")
 --
 
+-- swap windows with SUPER + SHIFT + hjkl
+o.bind("SUPER + SHIFT + H", "Swap window to the left", hl.dsp.window.swap({ direction = "l" }))
+o.bind("SUPER + SHIFT + J", "Swap window down", hl.dsp.window.swap({ direction = "d" }))
+o.bind("SUPER + SHIFT + K", "Swap window up", hl.dsp.window.swap({ direction = "u" }))
+o.bind("SUPER + SHIFT + L", "Swap window to the right", hl.dsp.window.swap({ direction = "r" }))
+
 -- next menu item (arrow down/up)
 o.bind("CTRL + N", "next menu item", "wtype -k Down")
 o.bind("CTRL + P", "prev menu item", "wtype -k Up")
 
+-- focus with CTRL + hjkl everywhere: nvim splits -> tmux panes -> windows (see ~/.local/bin/focus-move)
+o.bind("CTRL + H", "Focus left (nvim/tmux/window)", "focus-move h")
+o.bind("CTRL + J", "Focus down (nvim/tmux/window)", "focus-move j")
+o.bind("CTRL + K", "Focus up (nvim/tmux/window)", "focus-move k")
+o.bind("CTRL + L", "Focus right (nvim/tmux/window)", "focus-move l")

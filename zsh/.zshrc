@@ -80,7 +80,6 @@ bindkey -e
 # ------------------------------------------------------------
 
 export PATH="$PATH:/usr/local/go/bin:$HOME/go/bin"
-export PATH="$HOME/.govm/shim:$PATH"
 
 # ------------------------------------------------------------
 # Pico SDK

@@ -10,10 +10,12 @@
     headset_per_zone_lighting, headset-signature-startup, headset-signature-shutdown, headset-signature-passive, logivoice-nr-state, logivoice-ng-state,
     logivoice-comp-state, logivoice-deesser-state, logivoice-depopper-state, logivoice-limiter-state, logivoice-hpf-state]
   _battery: 4100
-  _config_cookie: [246, 132]
+  _config_cookie: [33, 0]
   _modelId: B03400000000
   _sensitive: {hires-scroll-mode: ignore, hires-smooth-invert: ignore, hires-smooth-resolution: ignore}
+  _serial: 4AEFED4F
   _unitId: 4AEFED4F
+  _wpid: B034
   change-host: null
   divert-keys: {82: 0, 83: 0, 86: 0, 195: 1, 196: 0}
   dpi: 1000
@@ -37,14 +39,16 @@
     logivoice-limiter-state, logivoice-hpf-state, backlight_level, backlight_duration_hands_out, backlight_duration_hands_in, backlight_duration_powered,
     reprogrammable-keys]
   _battery: 4096
-  _config_cookie: [246, 131]
+  _config_cookie: [33, 1]
   _modelId: B35B408A0000
-  _sensitive: {hires-scroll-mode: ignore, hires-smooth-invert: ignore, hires-smooth-resolution: ignore}
+  _sensitive: {divert-keys: true, hires-scroll-mode: ignore, hires-smooth-invert: ignore, hires-smooth-resolution: ignore}
+  _serial: D0DFD932
   _unitId: D0DFD932
+  _wpid: 408A
   backlight: 0
   change-host: null
   disable-keyboard-keys: {1: false, 2: false, 4: false, 8: false, 16: false}
-  divert-keys: {10: 0, 110: 0, 111: 0, 191: 0, 199: 0, 200: 0, 209: 1, 210: 1, 211: 1, 224: 0, 225: 0, 226: 0, 227: 0, 228: 0, 229: 0, 230: 0, 231: 0, 232: 0,
+  divert-keys: {10: 0, 110: 0, 111: 1, 191: 0, 199: 0, 200: 0, 209: 1, 210: 1, 211: 1, 224: 0, 225: 0, 226: 0, 227: 0, 228: 0, 229: 0, 230: 0, 231: 0, 232: 0,
     233: 0, 234: 0, 235: 0, 236: 0}
   fn-swap: false
   multiplatform: 0
