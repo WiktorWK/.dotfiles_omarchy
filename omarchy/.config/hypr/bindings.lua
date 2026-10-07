@@ -36,8 +36,17 @@ o.bind("SUPER + SHIFT + K", "Swap window up", hl.dsp.window.swap({ direction = "
 o.bind("SUPER + SHIFT + L", "Swap window to the right", hl.dsp.window.swap({ direction = "r" }))
 
 -- next menu item (arrow down/up)
-o.bind("CTRL + N", "next menu item", "wtype -k Down")
-o.bind("CTRL + P", "prev menu item", "wtype -k Up")
+local function tap_key(key)
+  return function()
+    hl.dispatch(hl.dsp.send_key_state({ mods = "", key = key, state = "down" }))
+    hl.timer(function()
+      hl.dispatch(hl.dsp.send_key_state({ mods = "", key = key, state = "up" }))
+    end, { timeout = 10, type = "oneshot" })
+  end
+end
+
+o.bind("CTRL + N", "next menu item", tap_key("Down"), { repeating = true })
+o.bind("CTRL + P", "prev menu item", tap_key("Up"), { repeating = true })
 
 -- focus with CTRL + hjkl everywhere: nvim splits -> tmux panes -> windows (see ~/.local/bin/focus-move)
 o.bind("CTRL + H", "Focus left (nvim/tmux/window)", "focus-move h")

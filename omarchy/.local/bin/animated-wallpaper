@@ -1,0 +1,18 @@
+#!/bin/bash
+# Animated wallpaper: omarchy screensaver effects (ttfx) in a kitty background layer panel, one per monitor.
+# Usage: animated-wallpaper [start|stop]
+
+if [[ $1 == stop ]]; then
+  pkill -f 'kitty-panel-wallpaper'
+  exit 0
+fi
+
+pkill -f 'kitty-panel-wallpaper' 2>/dev/null
+
+for m in $(hyprctl monitors -j | jq -r '.[].name'); do
+  kitten panel --edge=background --app-id=kitty-panel-wallpaper --output-name="$m" \
+    -o font_family="JetBrainsMono Nerd Font" -o font_size=18 -o background=#000000 \
+    -o window_padding_width=0 -o confirm_os_window_close=0 \
+    bash -c 'while true; do ttfx -i ~/.config/omarchy/branding/screensaver.txt --frame-rate 60 --canvas-width 0 --canvas-height 0 --reuse-canvas --anchor-canvas c --anchor-text c --random-effect --no-eol --no-restore-cursor; sleep 2; done' &
+done
+wait
