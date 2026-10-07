@@ -33,7 +33,7 @@ plugins=(
 
 # ssh-agent config
 zstyle :omz:plugins:ssh-agent agent-forwarding yes
-zstyle :omz:plugins:ssh-agent identities id_rsa id_ed25519
+zstyle :omz:plugins:ssh-agent identities gitlab_gat github_w
 zstyle :omz:plugins:ssh-agent lifetime 4h
 zstyle :omz:plugins:ssh-agent quiet yes
 
